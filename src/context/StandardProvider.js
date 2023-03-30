@@ -4,6 +4,7 @@ import StandardContext from './StandardContext';
 
 export default function StandardProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     // Função que puxa as informações da API e seta as infos recebidas no estado.
@@ -24,7 +25,7 @@ export default function StandardProvider({ children }) {
 
   return (
     <div>
-      <StandardContext.Provider value={ { planets, setPlanets } }>
+      <StandardContext.Provider value={ { planets, setPlanets, search, setSearch } }>
         { children }
       </StandardContext.Provider>
     </div>
