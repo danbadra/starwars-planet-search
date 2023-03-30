@@ -2,8 +2,11 @@ import { useContext } from 'react';
 import StandardContext from '../context/StandardContext';
 
 export default function Table() {
-  const { planets, search } = useContext(StandardContext);
+  const { handleFilters, planets, search } = useContext(StandardContext);
 
+  if (planets.lenght === 0) return <p>Loading</p>;
+
+  console.log(planets);
   return (
     <div>
       <table>
@@ -26,23 +29,25 @@ export default function Table() {
         </thead>
         <tbody>
           {
-            planets.filter((planet) => planet.name.includes(search)).map((planet) => (
-              <tr key={ planet.name }>
-                <td>{planet.name}</td>
-                <td>{planet.rotation_period}</td>
-                <td>{planet.orbital_period}</td>
-                <td>{planet.diameter}</td>
-                <td>{planet.climate}</td>
-                <td>{planet.gravity}</td>
-                <td>{planet.terrain}</td>
-                <td>{planet.surface_water}</td>
-                <td>{planet.population}</td>
-                <td>{planet.films}</td>
-                <td>{planet.created}</td>
-                <td>{planet.edited}</td>
-                <td>{planet.url}</td>
-              </tr>
-            ))
+            handleFilters(planets).filter((planet) => planet.name
+              .includes(search))
+              .map((planet) => (
+                <tr key={ planet.name }>
+                  <td>{planet.name}</td>
+                  <td>{planet.rotation_period}</td>
+                  <td>{planet.orbital_period}</td>
+                  <td>{planet.diameter}</td>
+                  <td>{planet.climate}</td>
+                  <td>{planet.gravity}</td>
+                  <td>{planet.terrain}</td>
+                  <td>{planet.surface_water}</td>
+                  <td>{planet.population}</td>
+                  <td>{planet.films}</td>
+                  <td>{planet.created}</td>
+                  <td>{planet.edited}</td>
+                  <td>{planet.url}</td>
+                </tr>
+              ))
           }
         </tbody>
       </table>
