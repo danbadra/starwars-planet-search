@@ -9,7 +9,7 @@ export default function Filters() {
     setComparisonFilter,
     setNumericValue,
     addNewFilter,
-    allFilters,
+    // allFilters,
   } = useContext(StandardContext);
 
   return (
@@ -56,7 +56,7 @@ export default function Filters() {
         Adicionar filtro
       </button>
 
-      {
+      {/* {
         allFilters.map((filter) => {
           console.log(filter);
           return (
@@ -78,7 +78,7 @@ export default function Filters() {
             </table>
           );
         })
-      }
+      } */}
     </div>
   );
 }

@@ -49,11 +49,6 @@ export default function StandardProvider({ children }) {
     [...allFilters, { columnFilter, comparisonFilter, numericValue }],
   );
 
-  // const removeFilters = ({ target }) => {
-  //   const clickedFilter = allFilters
-  //     .find((filter) => filter.numericValue === target.numericValue);
-  // };
-
   // * 3. ENVIO DOS ESTADOS GLOBAIS PARA OS DEMAIS COMPONENTES
   return (
     <div>
