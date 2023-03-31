@@ -18,6 +18,7 @@ export default function StandardProvider({ children }) {
     'rotation_period',
     'surface_water',
   ]);
+  const [isClicked, setIsClicked] = useState('1');
 
   // * 2. FUNÇÕES
   // Faz requisição à API
@@ -63,10 +64,17 @@ export default function StandardProvider({ children }) {
       if (usedFilters.length === 0) return allColumnFilters;
       const unusedFilters = allColumnFilters.filter((a) => !usedFilters.includes(a));
       setAllColumnFilters([...unusedFilters]);
+      setColumnFilter(allColumnFilters[0]);
       console.log(allColumnFilters);
     };
     handleAvailableColumns();
   }, [usedFilters]);
+
+  // Limpa todos os filtros ativos
+  useEffect(() => {
+    const eraseFilters = () => setAllFilters([]);
+    eraseFilters();
+  }, [isClicked]);
 
   // * 3. ENVIO DOS ESTADOS GLOBAIS PARA OS DEMAIS COMPONENTES
   return (
@@ -88,7 +96,9 @@ export default function StandardProvider({ children }) {
           usedFilters,
           setUsedFilters,
           allColumnFilters,
-          setAllColumnFilters } }
+          setAllColumnFilters,
+          isClicked,
+          setIsClicked } }
       >
         { children }
       </StandardContext.Provider>

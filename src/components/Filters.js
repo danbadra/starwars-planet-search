@@ -10,11 +10,10 @@ export default function Filters() {
     setNumericValue,
     addNewFilter,
     allFilters,
-    // handleAvailableColumns,
     allColumnFilters,
+    isClicked,
+    setIsClicked,
   } = useContext(StandardContext);
-
-  // if (allFilters.lenght === 0) return <p>Loading</p>;
 
   return (
     <div>
@@ -65,7 +64,9 @@ export default function Filters() {
 
       <div>
         <div>Filtros Ativos</div>
-        <button>
+        <button
+          onClick={ () => setIsClicked(isClicked + 1) }
+        >
           Remover Todos os Filtros
         </button>
 
