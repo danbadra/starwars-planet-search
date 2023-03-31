@@ -9,8 +9,12 @@ export default function Filters() {
     setComparisonFilter,
     setNumericValue,
     addNewFilter,
-    // allFilters,
+    allFilters,
+    // handleAvailableColumns,
+    allColumnFilters,
   } = useContext(StandardContext);
+
+  // if (allFilters.lenght === 0) return <p>Loading</p>;
 
   return (
     <div>
@@ -26,11 +30,14 @@ export default function Filters() {
         data-testid="column-filter"
         onChange={ (e) => setColumnFilter(e.target.value) }
       >
-        <option>population</option>
-        <option>orbital_period</option>
-        <option>diameter</option>
-        <option>rotation_period</option>
-        <option>surface_water</option>
+        {
+          allColumnFilters.map((column) => (
+            <option
+              key={ column }
+            >
+              {column}
+            </option>))
+        }
       </select>
 
       <select
@@ -56,29 +63,23 @@ export default function Filters() {
         Adicionar filtro
       </button>
 
-      {/* {
-        allFilters.map((filter) => {
-          console.log(filter);
-          return (
-            <table key={ filter.columnFilter }>
-              <thead>
-                <tr>
-                  <th>Filtros Ativos</th>
-                  <th><button>Remover Todos os Filtros</button></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr key={ filter.columnFilter }>
-                  <td>{filter.columnFilter}</td>
-                  <td>{filter.comparisonFilter}</td>
-                  <td>{filter.numericValue}</td>
-                  <td><button>X</button></td>
-                </tr>
-              </tbody>
-            </table>
-          );
-        })
-      } */}
+      <div>
+        <div>Filtros Ativos</div>
+        <button>
+          Remover Todos os Filtros
+        </button>
+
+      </div>
+      {
+        allFilters.map((filter) => (
+          <div key={ filter.columnFilter }>
+            <p>{filter.columnFilter}</p>
+            <p>{filter.comparisonFilter}</p>
+            <p>{filter.numericValue}</p>
+            <p><button>X</button></p>
+          </div>
+        ))
+      }
     </div>
   );
 }

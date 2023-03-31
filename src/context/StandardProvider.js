@@ -10,6 +10,14 @@ export default function StandardProvider({ children }) {
   const [comparisonFilter, setComparisonFilter] = useState('maior que');
   const [numericValue, setNumericValue] = useState('0');
   const [allFilters, setAllFilters] = useState([]);
+  const [usedFilters, setUsedFilters] = useState([]);
+  const [allColumnFilters, setAllColumnFilters] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
 
   // * 2. FUNÇÕES
   // Faz requisição à API
@@ -26,7 +34,6 @@ export default function StandardProvider({ children }) {
 
   // Gerencia o comparisonFilter
   const handleFilters = (array) => {
-    console.log(array);
     allFilters.forEach((f) => {
       switch (f.comparisonFilter) {
       case 'maior que':
@@ -45,9 +52,21 @@ export default function StandardProvider({ children }) {
     return array;
   };
 
-  const addNewFilter = () => setAllFilters(
-    [...allFilters, { columnFilter, comparisonFilter, numericValue }],
-  );
+  const addNewFilter = () => {
+    setAllFilters([...allFilters, { columnFilter, comparisonFilter, numericValue }]);
+    setUsedFilters([...usedFilters, columnFilter]);
+  };
+
+  // Gerencia as colunas já utilizadas para filtrar
+  useEffect(() => {
+    const handleAvailableColumns = () => {
+      if (usedFilters.length === 0) return allColumnFilters;
+      const unusedFilters = allColumnFilters.filter((a) => !usedFilters.includes(a));
+      setAllColumnFilters([...unusedFilters]);
+      console.log(allColumnFilters);
+    };
+    handleAvailableColumns();
+  }, [usedFilters]);
 
   // * 3. ENVIO DOS ESTADOS GLOBAIS PARA OS DEMAIS COMPONENTES
   return (
@@ -65,7 +84,11 @@ export default function StandardProvider({ children }) {
           setNumericValue,
           handleFilters,
           allFilters,
-          addNewFilter } }
+          addNewFilter,
+          usedFilters,
+          setUsedFilters,
+          allColumnFilters,
+          setAllColumnFilters } }
       >
         { children }
       </StandardContext.Provider>

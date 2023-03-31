@@ -6,7 +6,6 @@ export default function Table() {
 
   if (planets.lenght === 0) return <p>Loading</p>;
 
-  console.log(planets);
   return (
     <div>
       <table>
