@@ -9,10 +9,7 @@ export default function Filters() {
     setComparisonFilter,
     setNumericValue,
     addNewFilter,
-    allFilters,
     allColumnFilters,
-    isClicked,
-    setIsClicked,
   } = useContext(StandardContext);
 
   return (
@@ -30,9 +27,9 @@ export default function Filters() {
         onChange={ (e) => setColumnFilter(e.target.value) }
       >
         {
-          allColumnFilters.map((column) => (
+          allColumnFilters.map((column, index) => (
             <option
-              key={ column }
+              key={ index }
             >
               {column}
             </option>))
@@ -61,26 +58,6 @@ export default function Filters() {
       >
         Adicionar filtro
       </button>
-
-      <div>
-        <div>Filtros Ativos</div>
-        <button
-          onClick={ () => setIsClicked(isClicked + 1) }
-        >
-          Remover Todos os Filtros
-        </button>
-
-      </div>
-      {
-        allFilters.map((filter) => (
-          <div key={ filter.columnFilter }>
-            <p>{filter.columnFilter}</p>
-            <p>{filter.comparisonFilter}</p>
-            <p>{filter.numericValue}</p>
-            <p><button>X</button></p>
-          </div>
-        ))
-      }
     </div>
   );
 }
